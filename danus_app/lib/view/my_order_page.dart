@@ -39,15 +39,15 @@ class _MyOrderPageState extends State<MyOrderPage> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
-              const SizedBox(height: 36),
+              SizedBox(height: 36),
               ListView.builder(
-                physics: const ScrollPhysics(),
+                physics: ScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 5,
+                itemCount: 1,
                 itemBuilder: (context, index) {
                   return Container(
-                    margin: const EdgeInsets.only(bottom: 20),
-                    padding: const EdgeInsets.all(9),
+                    margin: EdgeInsets.only(bottom: 20),
+                    padding: EdgeInsets.all(9),
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -71,7 +71,7 @@ class _MyOrderPageState extends State<MyOrderPage> {
                               ),
                             ),
                             Text(
-                              "Quantity : 2",
+                              "Quantity : 1",
                               style: fontTextStyle.copyWith(
                                 fontSize: 12,
                                 color: AppColor.lightGrey,

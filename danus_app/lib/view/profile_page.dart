@@ -1,4 +1,5 @@
 import 'package:danus_app/config/app_color.dart';
+import 'package:danus_app/view/chat_ai.dart';
 import 'package:danus_app/view/login.dart';
 import 'package:flutter/material.dart';
 
@@ -77,6 +78,29 @@ class _ProfilePageState extends State<ProfilePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
+                        builder: (context) => const ChatRoomApp(),
+                      ));
+                },
+                child: Text(
+                  "Chat Dengan Kami ",
+                  style: fontTextStyle.copyWith(
+                    fontSize: 12,
+                    color: AppColor.black,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColor.grey,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
                         builder: (context) => const LoginPage(),
                       ));
                 },
@@ -88,7 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

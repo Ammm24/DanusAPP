@@ -1,9 +1,9 @@
 import 'package:danus_app/config/app_color.dart';
 import 'package:danus_app/config/pref.dart';
 import 'package:danus_app/view/home_page.dart';
+import 'package:danus_app/view/login.dart';
 import 'package:danus_app/view/my_order_page.dart';
 import 'package:danus_app/view/profile_page.dart';
-import 'package:danus_app/view/welcome_page.dart';
 import 'package:flutter/material.dart';
 
 class BasePage extends StatefulWidget {
@@ -33,9 +33,9 @@ class _BasePageState extends State<BasePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String?>(
-        future: _session.getIntroShow(),
+        future: _session.getUserToken(),
         builder: (_, snapshot) {
-          if (snapshot.data == null) return const WelcomePage();
+          if (snapshot.data == null) return const LoginPage();
           return Scaffold(
             body: Center(
               child: _widgetOptions.elementAt(_selectedIndex),

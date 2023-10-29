@@ -1,4 +1,4 @@
-import 'package:danus_app/view/welcome_page.dart';
+import 'package:danus_app/base_page.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -12,10 +12,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Danusan HMIF',
-      home: WelcomePage(),
+      home: BasePage(),
     );
   }
 }

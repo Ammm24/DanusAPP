@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      //TERNARY OPERATOR
       body: _listProduct == null
           ? const Center(
               child: CircularProgressIndicator(),
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                     GridView.builder(
                       physics: const ScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: 1,
+                      itemCount: _listProduct?.data?.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -96,13 +97,23 @@ class _HomePageState extends State<HomePage> {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Image.asset("assets/ic_product.png"),
-                                // Image.network(
-                                //   "${listProduct?.picturePath}",
-                                //   width: 154,
-                                //   fit: BoxFit.cover,
-                                // ),
-                                const SizedBox(height: 3),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.network(
+                                    "https://www.danusanhmif.store/storage/${listProduct?.picturePath}",
+                                    width: 154,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error,
+                                            stackTrace) =>
+                                        const SizedBox(
+                                            height: 82,
+                                            width: double.infinity,
+                                            child: Center(
+                                                child:
+                                                    Text("can't load image"))),
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
                                 Row(
                                   children: [
                                     Text(

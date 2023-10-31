@@ -1,8 +1,22 @@
 import 'package:danus_app/config/app_color.dart';
+// import 'package:danus_app/view/kasbon_page.dart';
+// import 'package:danus_app/view/payment_page.dart';
+import 'package:danus_app/view/upload_bukti_transfer.dart';
 import 'package:flutter/material.dart';
 
 class CheckOutPage extends StatefulWidget {
-  const CheckOutPage({super.key});
+  const CheckOutPage(
+      {super.key,
+      this.nameProduct,
+      this.price,
+      this.quantity,
+      this.image,
+      this.foodId});
+  final dynamic nameProduct;
+  final dynamic price;
+  final dynamic quantity;
+  final dynamic image;
+  final dynamic foodId;
 
   @override
   State<CheckOutPage> createState() => _CheckOutPageState();
@@ -29,7 +43,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
               SizedBox(height: 12),
               ListView.builder(
                 shrinkWrap: true,
-                itemCount: 3,
+                itemCount: 1,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 16),
@@ -37,20 +51,30 @@ class _CheckOutPageState extends State<CheckOutPage> {
                       children: [
                         Row(
                           children: [
-                            Image.asset(
-                              "assets/ic_product_small.png",
-                              width: 60,
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.network(
+                                "${widget.image}",
+                                width: 60,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const SizedBox(
+                                        height: 60,
+                                        width: 60,
+                                        child: Center(
+                                            child: Text("can't load image"))),
+                              ),
                             ),
                             SizedBox(width: 12),
                             Column(
                               children: [
                                 Text(
-                                  "Indomie",
+                                  "${widget.nameProduct}",
                                   style: fontTextStyle.copyWith(
                                       color: AppColor.black),
                                 ),
                                 Text(
-                                  "Rp. 8000",
+                                  "Rp. ${widget.price}",
                                   style: fontTextStyle.copyWith(
                                       color: Color(0xFF8D92A3), fontSize: 12),
                                 ),
@@ -60,7 +84,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                         ),
                         Spacer(),
                         Text(
-                          "Rp. 8000",
+                          "Rp. ${widget.price}",
                           style: fontTextStyle.copyWith(
                               color: Color(0xFF8D92A3), fontSize: 13),
                         )
@@ -76,12 +100,12 @@ class _CheckOutPageState extends State<CheckOutPage> {
               Row(
                 children: [
                   Text(
-                    "Indomie",
+                    "${widget.nameProduct}",
                     style: fontTextStyle.copyWith(color: Color(0xFF8D92A3)),
                   ),
                   Spacer(),
                   Text(
-                    "Rp. 8000",
+                    "Rp. ${widget.price}",
                     style: fontTextStyle.copyWith(color: AppColor.black),
                   ),
                 ],
@@ -89,12 +113,12 @@ class _CheckOutPageState extends State<CheckOutPage> {
               Row(
                 children: [
                   Text(
-                    "Indomie",
+                    "Quantity",
                     style: fontTextStyle.copyWith(color: Color(0xFF8D92A3)),
                   ),
                   Spacer(),
                   Text(
-                    "Rp. 8000",
+                    "${widget.quantity}",
                     style: fontTextStyle.copyWith(color: AppColor.black),
                   ),
                 ],
@@ -108,7 +132,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                   ),
                   Spacer(),
                   Text(
-                    "Rp. 8000",
+                    "Rp. ${widget.price * widget.quantity}",
                     style: fontTextStyle.copyWith(color: AppColor.black),
                   ),
                 ],
@@ -125,7 +149,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                   ),
                   Spacer(),
                   Text(
-                    "Rp. 8000",
+                    "Rp. ${widget.price * widget.quantity}",
                     style: fontTextStyle.copyWith(
                         color: AppColor.black,
                         fontWeight: FontWeight.w700,
@@ -133,6 +157,94 @@ class _CheckOutPageState extends State<CheckOutPage> {
                   ),
                 ],
               ),
+              SizedBox(height: 24),
+              InkResponse(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UploadBuktiTransferPage(
+                            image: widget.image,
+                            nameProduct: widget.nameProduct,
+                            price: widget.price,
+                            quantity: widget.quantity,
+                            foodId: widget.foodId),
+                      ));
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: AppColor.grey),
+                  child: Text(
+                    "Pembayaran cash/tunai",
+                    style: fontTextStyle.copyWith(),
+                  ),
+                ),
+              ),
+              SizedBox(height: 12),
+              // ListView.builder(
+              //   physics: NeverScrollableScrollPhysics(),
+              //   itemCount: 4,
+              //   shrinkWrap: true,
+              //   itemBuilder: (context, index) {
+              //     return InkResponse(
+              //       onTap: () {
+              //         Navigator.push(
+              //             context,
+              //             MaterialPageRoute(
+              //               builder: (context) => UploadBuktiTransferPage(),
+              //             ));
+              //       },
+              //       child: Container(
+              //         margin: EdgeInsets.only(bottom: 8),
+              //         padding:
+              //             EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              //         width: double.infinity,
+              //         decoration: BoxDecoration(
+              //             borderRadius: BorderRadius.circular(8),
+              //             color: AppColor.grey),
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //           children: [
+              //             Image.asset(
+              //               "assets/ic_gopay.png",
+              //               width: 32,
+              //             ),
+              //             Text(
+              //               "Gopay",
+              //               style: fontTextStyle.copyWith(),
+              //             ),
+              //             Text(
+              //               "0895375873744 a/n reonaldi",
+              //               style: fontTextStyle.copyWith(fontSize: 12),
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     );
+              //   },
+              // ),
+              SizedBox(height: 32),
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  minimumSize: Size.fromHeight(45),
+                ),
+                child: Text(
+                  'Kasbon',
+                  style: fontTextStyle.copyWith(
+                      color: AppColor.black, fontWeight: FontWeight.w500),
+                ),
+                onPressed: () {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => const KasbonPage(),
+                  //     ));
+                },
+              ),
+              SizedBox(height: 32),
             ],
           ),
         ),

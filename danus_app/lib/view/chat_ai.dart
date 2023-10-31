@@ -87,7 +87,7 @@ class _ChatRoomState extends State<ChatRoom> {
   }
 
   Future<void> _submitForm(String userMessage) async {
-    String key = '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';
+    String key = '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';
     final apiKey = key;
     const apiUrl = 'https://api.openai.com/v1/completions';
 
@@ -101,8 +101,8 @@ class _ChatRoomState extends State<ChatRoom> {
       body: jsonEncode(<String, dynamic>{
         "model": "text-davinci-003",
         'prompt':
-            "jika ada yang bertanya siapa kamu maka kamu jawab, saya chat bot yang ingin membantu anda untuk melakukan tranksaksi"
-                "jika ada yang bertanya harga mie berapa maka kamu jawab, harga mie adalah 5000 jika dimasak dan jika tidak di masaka 3000 saja"
+            "jika ada yang bertanya bisakah kamu membantu saya ? jawab, halo perkenalkan nama saya bot chat, saya bisa membantu anda untuk memesan product pada HMIF"
+                // "jika ada yang bertanya harga mie berapa maka kamu jawab, harga mie adalah 5000 jika dimasak dan jika tidak di masaka 3000 saja"
                 "data user akan didapatkan dari variabel berikut $userMessage",
         'max_tokens': 100,
       }),

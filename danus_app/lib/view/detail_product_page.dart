@@ -26,14 +26,22 @@ class _DetailProductPageState extends State<DetailProductPage> {
     return Scaffold(
       body: SafeArea(
         child: _dataProduct == null
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : SingleChildScrollView(
                 child: Column(
                   // alignment: Alignment.bottomCenter,
                   children: [
-                    Image.asset("assets/ic_product.png"),
+                    // Image.asset("assets/ic_product.png"),
+                    Image.network(
+                      "https://www.danusanhmif.store/storage/${_dataProduct?.picturePath}",
+                      fit: BoxFit.fitWidth,
+                      errorBuilder: (context, error, stackTrace) => SizedBox(
+                          height: 146,
+                          width: double.infinity,
+                          child: Center(child: Text("can't load image"))),
+                    ),
                     Container(
                       height: 500,
                       width: double.infinity,
@@ -93,34 +101,35 @@ class _DetailProductPageState extends State<DetailProductPage> {
                                     color: AppColor.black,
                                   ),
                                 ),
-                                // Spacer(),
-                                // Row(
-                                //   children: [
-                                //     IconButton(
-                                //         onPressed: () {
-                                //           _decrementCounter();
-                                //         },
-                                //         icon: Image.asset(
-                                //             _counter >= 1
-                                //                 ? "assets/button_min_dark.png"
-                                //                 : "assets/button_min.png",
-                                //             width: 28)),
-                                //     Text(
-                                //       "$_counter",
-                                //       style: fontTextStyle.copyWith(
-                                //         fontWeight: FontWeight.w600,
-                                //         color: const Color(0xFF252A31),
-                                //         fontSize: 16,
-                                //       ),
-                                //     ),
-                                //     IconButton(
-                                //         onPressed: () {
-                                //           _incrementCounter();
-                                //         },
-                                //         icon: Image.asset("assets/button_plus.png",
-                                //             width: 28)),
-                                //   ],
-                                // ),
+                                Spacer(),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                        onPressed: () {
+                                          _decrementCounter();
+                                        },
+                                        icon: Image.asset(
+                                            _counter >= 1
+                                                ? "assets/button_min_dark.png"
+                                                : "assets/button_min.png",
+                                            width: 28)),
+                                    Text(
+                                      "$_counter",
+                                      style: fontTextStyle.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: const Color(0xFF252A31),
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          _incrementCounter();
+                                        },
+                                        icon: Image.asset(
+                                            "assets/button_plus.png",
+                                            width: 28)),
+                                  ],
+                                ),
                               ],
                             ),
                             SizedBox(height: 24),
@@ -130,15 +139,25 @@ class _DetailProductPageState extends State<DetailProductPage> {
                                   borderRadius: BorderRadius.circular(12)),
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColor.colorPrimary,
+                                  backgroundColor: _counter > 0
+                                      ? AppColor.colorPrimary
+                                      : Colors.grey,
                                 ),
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const CheckOutPage(),
-                                      ));
+                                  _counter > 0
+                                      ? Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => CheckOutPage(
+                                              image:
+                                                  "https://www.danusanhmif.store/storage/${_dataProduct?.picturePath}",
+                                              nameProduct: _dataProduct?.name,
+                                              price: _dataProduct?.price,
+                                              quantity: _counter,
+                                              foodId: _dataProduct?.id,
+                                            ),
+                                          ))
+                                      : null;
                                 },
                                 child: Text(
                                   'Checkout',

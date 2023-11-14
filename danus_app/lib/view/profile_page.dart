@@ -1,6 +1,7 @@
 import 'package:danus_app/base_page.dart';
 import 'package:danus_app/config/app_color.dart';
 import 'package:danus_app/config/pref.dart';
+import 'package:danus_app/view/chat_ai.dart';
 import 'package:danus_app/viewmodel/auth_viewmodel.dart';
 import 'package:danus_app/viewmodel/user_viewmodel.dart';
 import 'package:danus_app/widget/flutter_toast.dart';
@@ -80,52 +81,29 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: AppColor.black,
                     ),
                   ),
-                  const SizedBox(height: 60),
-                  // SizedBox(
-                  //   width: double.infinity,
-                  //   child: ElevatedButton(
-                  //     style: ElevatedButton.styleFrom(
-                  //       backgroundColor: AppColor.grey,
-                  //     ),
-                  //     onPressed: () {
-                  //       Navigator.push(
-                  //           context,
-                  //           MaterialPageRoute(
-                  //             builder: (context) => const EditPage(),
-                  //           ));
-                  //     },
-                  //     child: Text(
-                  //       "Edit Profile",
-                  //       style: fontTextStyle.copyWith(
-                  //         fontSize: 12,
-                  //         color: AppColor.black,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 28),
-                  // SizedBox(
-                  //   width: double.infinity,
-                  //   child: ElevatedButton(
-                  //     style: ElevatedButton.styleFrom(
-                  //       backgroundColor: AppColor.grey,
-                  //     ),
-                  //     onPressed: () {
-                  //       Navigator.push(
-                  //           context,
-                  //           MaterialPageRoute(
-                  //             builder: (context) => const ChangePasswordPage(),
-                  //           ));
-                  //     },
-                  //     child: Text(
-                  //       "Change Password",
-                  //       style: fontTextStyle.copyWith(
-                  //         fontSize: 12,
-                  //         color: AppColor.black,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
+                  const SizedBox(height: 28),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.grey,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ChatRoomApp(),
+                            ));
+                      },
+                      child: Text(
+                        "Chat Dengan Kami",
+                        style: fontTextStyle.copyWith(
+                          fontSize: 12,
+                          color: AppColor.black,
+                        ),
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(

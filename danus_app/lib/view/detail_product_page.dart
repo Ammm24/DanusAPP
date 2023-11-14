@@ -23,9 +23,9 @@ class _DetailProductPageState extends State<DetailProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: _dataProduct == null
+    return SafeArea(
+      child: Scaffold(
+        body: _dataProduct == null
             ? const Center(
                 child: CircularProgressIndicator(),
               )
@@ -34,6 +34,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                   // alignment: Alignment.bottomCenter,
                   children: [
                     // Image.asset("assets/ic_product.png"),
+                    SizedBox(height: 12),
                     Image.network(
                       "https://www.danusanhmif.store/storage/${_dataProduct?.picturePath}",
                       fit: BoxFit.fitWidth,

@@ -25,7 +25,7 @@ class _BasePageState extends State<BasePage> {
   }
 
   static final List<Widget> _widgetOptions = <Widget>[
-    const HomePage(),
+    HomePage(),
     const MyOrderPage(),
     const ProfilePage(),
   ];

@@ -44,8 +44,8 @@ class _MyOrderPageState extends State<MyOrderPage> {
           ),
         ],
       ),
-      body: listTransaction!.isEmpty
-          ? Center(
+      body: listTransaction == null
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : SingleChildScrollView(

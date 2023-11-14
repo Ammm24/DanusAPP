@@ -1,55 +1,30 @@
 import 'package:danus_app/config/app_color.dart';
-import 'package:danus_app/model/list_product.dart';
+import 'package:danus_app/provider/product_provider.dart';
 import 'package:danus_app/view/detail_product_page.dart';
-import 'package:danus_app/viewmodel/product_viewmodel.dart';
-import 'package:danus_app/widget/flutter_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    getListProduct();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: SizedBox(),
-        centerTitle: true,
-        title: Image.asset(
-          "assets/logo_danus.png",
-          width: 200,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.shopping_cart_rounded,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.settings,
-            ),
-          ),
-        ],
+        title: const Text('Your App'),
       ),
-      //TERNARY OPERATOR
-      body: _listProduct == null
-          ? const Center(
+      body: Consumer<ProductProvider>(
+        builder: (context, productProvider, _) {
+          if (productProvider.productData == null) {
+            return const Center(
               child: CircularProgressIndicator(),
-            )
-          : Padding(
+            );
+          } else {
+            var listProduct0 = productProvider.productData;
+
+            debugPrint("listproduct ${listProduct0?.data["data"].length}");
+
+            return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: SingleChildScrollView(
                 child: Column(
@@ -58,23 +33,24 @@ class _HomePageState extends State<HomePage> {
                     GridView.builder(
                       physics: const ScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: _listProduct?.data?.length,
+                      itemCount: listProduct0?.data["data"].length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        // childAspectRatio: 3 / 2,
                         mainAxisExtent: 180,
                       ),
                       itemBuilder: (BuildContext context, int index) {
-                        var listProduct = _listProduct?.data?[index];
+                        var listProduct = listProduct0?.data?["data"][index];
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      DetailProductPage(id: listProduct?.id),
-                                ));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailProductPage(
+                                  id: listProduct?["id"],
+                                ),
+                              ),
+                            );
                           },
                           child: Container(
                             margin: const EdgeInsets.only(left: 8, top: 8),
@@ -82,17 +58,20 @@ class _HomePageState extends State<HomePage> {
                                 left: 8, right: 8, top: 9),
                             width: double.infinity,
                             decoration: BoxDecoration(
-                                color: AppColor.white,
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: AppColor.grey,
-                                    spreadRadius: 0,
-                                    blurRadius: 4,
-                                    offset: Offset(
-                                        0, 1), // changes position of shadow
+                              color: AppColor.white,
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: AppColor.grey,
+                                  spreadRadius: 0,
+                                  blurRadius: 4,
+                                  offset: Offset(
+                                    0,
+                                    1,
                                   ),
-                                ],
-                                borderRadius: BorderRadius.circular(10)),
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,24 +79,24 @@ class _HomePageState extends State<HomePage> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8.0),
                                   child: Image.network(
-                                    "https://www.danusanhmif.store/storage/${listProduct?.picturePath}",
+                                    "https://www.danusanhmif.store/storage/${listProduct?["picturePath"]}",
                                     width: 154,
                                     fit: BoxFit.cover,
-                                    errorBuilder: (context, error,
-                                            stackTrace) =>
-                                        const SizedBox(
-                                            height: 82,
-                                            width: double.infinity,
-                                            child: Center(
-                                                child:
-                                                    Text("can't load image"))),
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const SizedBox(
+                                      height: 82,
+                                      width: double.infinity,
+                                      child: Center(
+                                          child: Text("can't load image")),
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 8),
                                 Row(
                                   children: [
                                     Text(
-                                      "${listProduct?.name}",
+                                      "${listProduct?["name"]}",
                                       style: fontTextStyle.copyWith(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700,
@@ -126,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     const Spacer(),
                                     Text(
-                                      "Rp ${listProduct?.price}",
+                                      "Rp ${listProduct?["price"]}",
                                       style: fontTextStyle.copyWith(
                                         color: AppColor.black,
                                       ),
@@ -135,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 const SizedBox(height: 6),
                                 Text(
-                                  "Stok : ${listProduct?.stok}",
+                                  "Stok : ${listProduct?["stok"]}",
                                   style: fontTextStyle.copyWith(
                                       color: AppColor.black, fontSize: 9),
                                 ),
@@ -148,20 +127,10 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-            ),
+            );
+          }
+        },
+      ),
     );
-  }
-
-  ListProduct? _listProduct;
-  getListProduct() {
-    ProductViewmodel().listProduct().then((value) {
-      if (value.code == 200) {
-        setState(() {
-          _listProduct = ListProduct.fromJson(value.data);
-        });
-      } else {
-        showToast(context: context, msg: value.message);
-      }
-    });
   }
 }

@@ -1,9 +1,10 @@
+import 'package:danus_app/base_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 void main() {
-  runApp(ChatRoomApp());
+  runApp(const ChatRoomApp());
 }
 
 class ChatRoomApp extends StatelessWidget {
@@ -22,9 +23,18 @@ class ChatRoomScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat Bot Room'),
-        backgroundColor: const Color(0xFFEEF0F1),
-      ),
+          title: const Text('Chat Bot Room'),
+          backgroundColor: const Color(0x1F171733),
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              color: Colors.black,
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const BasePage(),
+                    ));
+              })),
       body: ChatRoom(),
     );
   }
@@ -62,12 +72,13 @@ class _ChatRoomState extends State<ChatRoom> {
                 Expanded(
                   child: TextFormField(
                     controller: _messageController,
-                    decoration: InputDecoration(hintText: 'Type a message'),
+                    decoration:
+                        const InputDecoration(hintText: 'Type a message'),
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send),
-                  color: Color(0xFF07089F),
+                  icon: const Icon(Icons.send),
+                  color: const Color(0xFF07089F),
                   onPressed: () {
                     setState(() {
                       String message = _messageController.text;
@@ -87,7 +98,7 @@ class _ChatRoomState extends State<ChatRoom> {
   }
 
   Future<void> _submitForm(String userMessage) async {
-    String key = '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';
+    String key = '';
     final apiKey = key;
     const apiUrl = 'https://api.openai.com/v1/completions';
 
@@ -101,9 +112,8 @@ class _ChatRoomState extends State<ChatRoom> {
       body: jsonEncode(<String, dynamic>{
         "model": "text-davinci-003",
         'prompt':
-            "jika ada yang bertanya bisakah kamu membantu saya ? jawab, halo perkenalkan nama saya bot chat, saya bisa membantu anda untuk memesan product pada HMIF"
-                // "jika ada yang bertanya harga mie berapa maka kamu jawab, harga mie adalah 5000 jika dimasak dan jika tidak di masaka 3000 saja"
-                "data user akan didapatkan dari variabel berikut $userMessage",
+            "jika ada yang bertanya tentang berapa harga mie ?, jawablah Tergantung dari produk masing-masing, ada juga beberapa yang lebih mahal atau lebih murah dari harga tersebut.",
+        // "data user akan didapatkan dari variabel berikut $userMessage",
         'max_tokens': 100,
       }),
     );

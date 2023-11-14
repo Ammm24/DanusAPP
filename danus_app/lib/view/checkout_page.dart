@@ -172,79 +172,36 @@ class _CheckOutPageState extends State<CheckOutPage> {
                       ));
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                   width: double.infinity,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: AppColor.grey),
                   child: Text(
-                    "Pembayaran cash/tunai",
+                    "Payment Banking (Upload Foto)",
                     style: fontTextStyle.copyWith(),
                   ),
                 ),
               ),
-              SizedBox(height: 12),
-              // ListView.builder(
-              //   physics: NeverScrollableScrollPhysics(),
-              //   itemCount: 4,
-              //   shrinkWrap: true,
-              //   itemBuilder: (context, index) {
-              //     return InkResponse(
-              //       onTap: () {
-              //         Navigator.push(
-              //             context,
-              //             MaterialPageRoute(
-              //               builder: (context) => UploadBuktiTransferPage(),
-              //             ));
-              //       },
-              //       child: Container(
-              //         margin: EdgeInsets.only(bottom: 8),
-              //         padding:
-              //             EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              //         width: double.infinity,
-              //         decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.circular(8),
-              //             color: AppColor.grey),
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //           children: [
-              //             Image.asset(
-              //               "assets/ic_gopay.png",
-              //               width: 32,
-              //             ),
-              //             Text(
-              //               "Gopay",
-              //               style: fontTextStyle.copyWith(),
-              //             ),
-              //             Text(
-              //               "0895375873744 a/n reonaldi",
-              //               style: fontTextStyle.copyWith(fontSize: 12),
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     );
-              //   },
+              // SizedBox(height: 32),
+              // OutlinedButton(
+              //   style: OutlinedButton.styleFrom(
+              //     minimumSize: Size.fromHeight(45),
+              //   ),
+              //   child: Text(
+              //     'Tunai (BY WhatsApp)',
+              //     style: fontTextStyle.copyWith(
+              //         color: AppColor.black, fontWeight: FontWeight.w500),
+              //   ),
+              //   onPressed: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //           builder: (context) => const (),
+              //         ));
+              // },
               // ),
-              SizedBox(height: 32),
-              OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  minimumSize: Size.fromHeight(45),
-                ),
-                child: Text(
-                  'Kasbon',
-                  style: fontTextStyle.copyWith(
-                      color: AppColor.black, fontWeight: FontWeight.w500),
-                ),
-                onPressed: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //       builder: (context) => const KasbonPage(),
-                  //     ));
-                },
-              ),
-              SizedBox(height: 32),
             ],
           ),
         ),

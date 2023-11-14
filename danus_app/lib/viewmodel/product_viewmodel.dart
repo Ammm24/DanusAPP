@@ -5,6 +5,7 @@ import 'package:danus_app/config/model/resp.dart';
 import 'package:danus_app/config/network.dart';
 import 'package:danus_app/config/pref.dart';
 
+//LOGIC UNTUK MANGGIL API
 class ProductViewmodel {
   Future<Resp> listProduct() async {
     String? token = await Session().getUserToken();
